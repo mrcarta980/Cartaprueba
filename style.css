@@ -472,13 +472,13 @@ display: none;
         font-size: 14px;
     }
     .slider-img{
-        width: 200%;
+        width: 300%;
         text-align: center;
     }
     .slider-img img{
         margin-right: 0;
-        right: 200px; 
-        transform: scale(0.7);
+        right: 100px; 
+        transform: scale(0.4);
     }
     .swiper-horizontal > .swiper-pagination-bullet,
     .swiper-pagination-bullet,.swiper-pagination-horizontal,
