@@ -1,51 +1,48 @@
 
+// Eventos para los botones desplegables
+document.querySelectorAll('.desplegable').forEach(button => {
+    button.addEventListener('click', () => {
+        const contenido = button.nextElementSibling;
 
-var swiper = new Swiper(".mySwiper-1", {
-    slidesPerView:1,
-    spaceBetween:30,
-    loop:true,
-    pagination: {
-        el:".swiper-pagination",
-        clickable: true,
-    },
-    navigation: {
-        nextEl:".swiper-button-next",
-        prevEl:".swiper-button-prev",
-        
+        // Cerrar todos los demás contenidos
+        document.querySelectorAll('.contenido').forEach(otroContenido => {
+            if (otroContenido !== contenido && otroContenido.classList.contains('abierto')) {
+                otroContenido.classList.remove('abierto');
+            }
+        });
 
-    }
-
-})
-var swiper = new Swiper(".mySwiper-2", {
-    slidesPerView:3,
-    spaceBetween:20,
-    loop:true,
-    loopFillGroupWithBlank:true,
-    navigation:{
-        nextEl:".swiper-button-next",
-        prevEl:".swiper-button-prev",
-    },
-    breakpoint : {
-        0:{
-            slidesPerView:1
-        },
-        520:{
-            slidesPerView:2
-        },
-        950:{
-            slidesPerView:3
-        }
-    }
-
-})
-
-let tabImputs = document.querySelectorAll(".tabImput");
-tabImputs .forEach(function(input){
-    input.addEventListener("change" , function(){
-        let id = input.ariaValueMax;
-        let thisSwiper = document.getElementById("swiper" + id);
-        thisSwiper.swiper.update();
-    })
+        // Mostrar u ocultar el contenido actual
+        contenido.classList.toggle('abierto');
+    });
 });
 
+let slideIndex = 0;
 
+function mostrarSlideManual(index) {
+    slideIndex = index;
+    actualizarCarrusel();
+}
+
+function actualizarCarrusel() {
+    const slides = document.querySelectorAll('.slide');
+    const indicadores = document.querySelectorAll('.indicador');
+
+    slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === slideIndex) {
+            slide.classList.add('active');
+        }
+    });
+
+    indicadores.forEach((indicador, i) => {
+        indicador.classList.remove('active');
+        if (i === slideIndex) {
+            indicador.classList.add('active');
+        }
+    });
+}
+
+setInterval(() => {
+    slideIndex = (slideIndex + 1) % document.querySelectorAll('.slide').length;
+    actualizarCarrusel();
+}, 5000);
